@@ -570,23 +570,13 @@ endif
 # Reset
 
 ifndef RESET_CMD
-	ARD_RESET_ARDUINO := $(shell which ard-reset-arduino)
+	ARD_RESET_ARDUINO := $(shell which reset-arduino)
 	ifndef ARD_RESET_ARDUINO
 		# same level as *.mk in bin directory when checked out from git
 		# or in $PATH when packaged
-		ARD_RESET_ARDUINO = $(ARDMK_DIR)/bin/ard-reset-arduino
+		ARD_RESET_ARDUINO = $(ARDMK_DIR)/bin/reset-arduino
 	endif
-    ifneq ($(CATERINA),)
-       RESET_CMD = $(ARD_RESET_ARDUINO) --caterina $(ARD_RESET_OPTS) $(call get_monitor_port)
-    else
-       RESET_CMD = $(ARD_RESET_ARDUINO) $(ARD_RESET_OPTS) $(call get_monitor_port)
-    endif
-endif
-
-ifneq ($(CATERINA),)
-    ERROR_ON_CATERINA = $(error On $(BOARD_TAG), raw_xxx operation is not supported)
-else
-    ERROR_ON_CATERINA =
+       RESET_CMD = $(ARD_RESET_ARDUINO)
 endif
 
 ########################################################################
