@@ -1,4 +1,5 @@
 # A Makefile for Arduino Sketches
+#####Modified to use a compiled C program for board reset (no dependencies) instead of a Perl script.
 
 This is a very simple Makefile which knows how to build Arduino sketches. It defines the entire workflows for compiling code, flashing it to Arduino and even communicating through Serial monitor. You don't need to change anything in the Arduino sketches.
 
