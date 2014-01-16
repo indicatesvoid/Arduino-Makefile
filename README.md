@@ -28,34 +28,11 @@ On Linux, you shouldn't need to set anything other than your board type and port
 - `ARDMK_DIR`   - Path where the `*.mk` are present. If you installed the package, then it is usually `/usr/share/arduino`
 - `AVR_TOOLS_DIR` - Path where the avr tools chain binaries are present. If you are going to use the binaries that came with Arduino installation, then you don't have to set it.
 
-The Makefile also delegates resetting the board to a short Perl program.
-You'll need to install `Device::SerialPort` to use it though.
-
-On Debian or Ubuntu:
-
-       apt-get install libdevice-serialport-perl
-
-On Fedora:
-
-       yum install perl-Device-SerialPort
-
-On openSUSE:
-
-      zypper install perl-Device-SerialPort
-
-On Mac using MacPorts:
-
-       sudo port install p5-device-serialport
-
-      and use /opt/local/bin/perl5 instead of /usr/bin/perl
-
-On other systems:
-
-       cpan Device::SerialPort
+The Makefile also delegates resetting the board to a binary executable (currently only Mac-compatible)
 
 ## Including Libraries
 
-You can specify space separated list of libraries that are needed for your sketch to the variable `ARDUINO_LIBS`.
+For libraries that are built into the Arduino core, or placed inside the Arduino 'libraries' directory, you can specify space separated list of libraries that are needed for your sketch to the variable `ARDUINO_LIBS`.
 
 `ARDUINO_LIBS = Wire SoftwareSerial`
 
@@ -67,6 +44,18 @@ The libraries will be searched in the following places in the following order.
 The libraries inside user folder will take precedence over libraries present in Arduino core folder.
 
 The makefile can autodetect the libraries that are included from your sketch and can include them automatically. But it can't detect libraries that are included from other libraries. (see [issue #93](https://github.com/sudar/Arduino-Makefile/issues/93))
+
+You can also set a user-defined path to other source files/libraries by setting the USER_LIB_PATH variable inside the child makefile:
+
+`USER_LIB_PATH = libs`
+
+This will crawl through the defined directory as well as all of its subdirectories, for example
+
+`libs/Library01.h`
+and
+`libs/morelibs/Libary02.h`
+
+Will both be compiled and linked.
 
 ## avrdude
 
